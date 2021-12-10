@@ -1,0 +1,10 @@
+title: Settings
+data:
+  site_name: 'My Secret Public Diary'
+  links:
+    -
+      name: Home
+      url: /
+    -
+      name: Github
+      url: 'https://github.com/braceyourself'

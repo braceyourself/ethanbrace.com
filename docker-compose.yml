@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  php:
+    image: php:8.0-fpm
+    user: "1000:1000"
+    volumes:
+      - ./:/var/www/html
+
+  nginx:
+    image: nginx
+    environment:
+      PROXY_PASS: php
+      PROXY_PASS_PORT: 9000
+    volumes:
+      - ./:/var/www/html
+      - ./nginx.conf:/etc/nginx/templates/default.conf.template
+    networks:
+      - default
+      - traefik
+    labels:
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+      - "traefik.http.routers.eb-blog.rule=Host(`eb-blog.test`)"
+      - "traefik.backend=eb-blog.test"
+      - "traefik.frontend.rule=Host:eb-blog.test"
+
+
+
+
+networks:
+  traefik:
+    external: true
