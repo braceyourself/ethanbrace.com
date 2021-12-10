@@ -4,3 +4,5 @@ WORKDIR /var/www/html
 
 ADD . /var/www/html
 
+ENV stage=dev
+
