@@ -65,7 +65,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.PROD_PRIVATE_KEY }}
-          source: "deploy.sh,docker-compose.yml"
+          source: "$(pwd)/deploy.sh,$(pwd)/docker-compose.yml"
           target: "~/docker/${{ secrets.SSH_HOST }}/"
       - name: Run Deploy script
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} ~/docker/${{ secrets.SSH_HOST }}/deploy.sh
