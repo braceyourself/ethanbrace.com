@@ -60,7 +60,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
       - uses: actions/checkout@v2
       - name: Copy Deploy files to server
-        run: scp $(pwd)/deploy.sh $(pwd)/docker-compose.yml '${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/docker/${{ secrets.SSH_HOST }}/'
+        run: scp deploy.sh docker-compose.yml '${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:~/docker/${{ secrets.SSH_HOST }}/'
       - name: Run Deploy script
         run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} '~/docker/${{ secrets.SSH_HOST }}/deploy.sh'
 
