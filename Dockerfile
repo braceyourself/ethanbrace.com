@@ -14,3 +14,4 @@ RUN chown www-data:www-data /var/www -R
 
 USER www-data
 
+RUN /var/www/html/artisan storage:link
