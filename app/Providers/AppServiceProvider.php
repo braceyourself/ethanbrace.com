@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if(app()->environment() === 'production'){
+            URL::forceSchema('https');
+        }
+
         // Statamic::script('app', 'cp');
         // Statamic::style('app', 'cp');
     }
