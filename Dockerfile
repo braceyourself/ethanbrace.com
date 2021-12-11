@@ -8,9 +8,9 @@ ARG WWWGROUP=1000
 RUN groupmod -g $WWWGROUP www-data \
     && usermod -u $WWWUSER www-data
 
-ADD --chown=www-data:www-data . /var/www/html
+ADD . /var/www/html
 
-RUN chown www-data:www-data /var/www/html -R
+RUN chown www-data:www-data /var/www -R
 
 USER www-data
 
