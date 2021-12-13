@@ -26,11 +26,10 @@ RUN npm install npm@latest -g \
     && npm install n -g \
     && n lts
 
+RUN chown www-data:www-data /var/www -R
 
 USER www-data
 ADD . /var/www/html
-
-RUN chown www-data:www-data /var/www -R
 
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
     && npm install \
