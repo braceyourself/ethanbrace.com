@@ -21,6 +21,9 @@ RUN install-php-extensions \
 
 USER www-data
 
+#------------------------------
+# compile assets
+#------------------------------
 FROM node:14.15.5 AS assets
 
 WORKDIR /usr/src/app
@@ -31,14 +34,15 @@ RUN npm install && \
     npm run prod
 
 
-
+#------------------------------
+# build prod image
+#------------------------------
 FROM base AS prod
 
 USER root
 
-COPY --from=assets /usr/src/app/public/js /var/www/html/public/
-COPY --from=assets /usr/src/app/public/css /var/www/html/public/
-COPY --from=base /var/www/html/vendor /var/www/html/vendor/
+COPY --from=assets /usr/src/app/public/js /var/www/html/dist/
+COPY --from=assets /usr/src/app/public/css /var/www/html/dist/
 
 
 RUN mkdir -p /var/www/html/public/vendor/statamic/cp \
@@ -53,4 +57,5 @@ RUN composer install -q \
     --no-dev \
     && composer dump-autoload \
     && /var/www/html/artisan storage:link \
-    && cp -r /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/
+    && cp -r /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/ \
+    && cp -r dist/** public/
