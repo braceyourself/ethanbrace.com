@@ -18,3 +18,5 @@ users/*yaml
 docker-compose.override.yml
 v8-compile-cache-1000
 *.swp
+.idea/
+/public/js/site.js.LICENSE.txt
