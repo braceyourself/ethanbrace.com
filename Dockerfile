@@ -29,4 +29,4 @@ RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --
     && /var/www/html/artisan storage:link
 
 
-RUN  cp /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/
+RUN cp -r /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/
