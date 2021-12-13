@@ -10,16 +10,18 @@ RUN groupmod -g $WWWGROUP www-data \
 
 RUN chown www-data:www-data /var/www -R
 
-USER www-data
+
 
 
 FROM base AS prod
 
-ADD . /var/www/html
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 RUN install-php-extensions \
         @composer
+
+USER www-data
+ADD . /var/www/html
 
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
     && npm install \
