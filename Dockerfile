@@ -20,9 +20,6 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions \
         @composer
 
-USER www-data
-ADD . /var/www/html
-
 RUN apt-get update && apt-get install -y \
     software-properties-common \
     npm
@@ -30,6 +27,10 @@ RUN apt-get update && apt-get install -y \
 RUN npm install npm@latest -g \ 
     && npm install n -g \
     && n lts
+
+
+USER www-data
+ADD . /var/www/html
 
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
     && npm install \
