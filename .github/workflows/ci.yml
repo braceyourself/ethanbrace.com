@@ -36,13 +36,12 @@ jobs:
       with:
         php-version: '8.0'
     - uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev
     - name: Build and push image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: ethanabrace/blog-site
         tags: latest
+        target: prod
         registry: docker.io
         username: ${{secrets.DOCKER_USERNAME}}
         password: ${{secrets.DOCKER_PASSWORD}}

@@ -16,3 +16,5 @@ yarn-error.log
 users/*yml
 users/*yaml
 docker-compose.override.yml
+v8-compile-cache-1000
+*.swp
