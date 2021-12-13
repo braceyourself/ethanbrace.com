@@ -23,6 +23,14 @@ RUN install-php-extensions \
 USER www-data
 ADD . /var/www/html
 
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    npm
+
+RUN npm install npm@latest -g \ 
+    && npm install n -g \
+    && n lts
+
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
     && npm install \
     && npm run prod \
