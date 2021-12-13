@@ -15,11 +15,10 @@ USER www-data
 
 FROM base AS prod
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 ADD . /var/www/html
 
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions \
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions \
         @composer
 
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
