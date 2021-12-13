@@ -5,4 +5,4 @@ cd $SCRIPT_DIR;
 
 docker-compose pull -q php
 docker-compose up -d --force-recreate
-docker-compose exec php rsync -a dist/ public/
+docker-compose exec php rsync -au dist/ public/
