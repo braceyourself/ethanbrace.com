@@ -31,6 +31,9 @@ RUN chown www-data:www-data /var/www -R
 USER www-data
 ADD . /var/www/html
 
+RUN mkdir -p /var/www/html/public/vendor/statamic/cp && \
+    cp /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/
+
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
     && npm install \
     && npm run prod \
