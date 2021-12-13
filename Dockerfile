@@ -41,8 +41,7 @@ FROM base AS prod
 
 USER root
 
-COPY --from=assets /usr/src/app/public/js /var/www/html/dist/js
-COPY --from=assets /usr/src/app/public/css /var/www/html/dist/css
+COPY --from=assets /usr/src/app/public /var/www/html/dist
 
 
 RUN mkdir -p /var/www/html/public/vendor/statamic/cp \
@@ -58,4 +57,4 @@ RUN composer install -q \
     && composer dump-autoload \
     && /var/www/html/artisan storage:link \
     && cp -r /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/ \
-    && cp -r dist/** public/
+    && rsync -a dist/ public/
