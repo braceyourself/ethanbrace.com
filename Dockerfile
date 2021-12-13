@@ -8,9 +8,6 @@ ARG WWWGROUP=1000
 RUN groupmod -g $WWWGROUP www-data \
     && usermod -u $WWWUSER www-data
 
-RUN chown www-data:www-data /var/www -R
-
-
 
 
 FROM base AS prod
@@ -32,6 +29,8 @@ RUN npm install npm@latest -g \
 
 USER www-data
 ADD . /var/www/html
+
+RUN chown www-data:www-data /var/www -R
 
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
     && npm install \
