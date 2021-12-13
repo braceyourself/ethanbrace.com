@@ -12,6 +12,8 @@ ADD . /var/www/html
 RUN groupmod -g $WWWGROUP www-data \
     && usermod -u $WWWUSER www-data
 
+RUN apt update && apt install -y rsync
+
 RUN install-php-extensions \
         @composer \
     &&  composer install -q \
