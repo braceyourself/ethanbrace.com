@@ -17,6 +17,7 @@ FROM base AS prod
 
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
 RUN install-php-extensions \
         @composer
 
@@ -24,7 +25,7 @@ RUN apt-get update && apt-get install -y \
     software-properties-common \
     npm
 
-RUN npm install npm@latest -g \ 
+RUN npm install npm@latest -g \
     && npm install n -g \
     && n lts
 
@@ -36,6 +37,6 @@ RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --
     && npm install \
     && npm run prod \
     && rm -rf node_modules \
-    && /var/www/html/artisan storage:link \
+    && /var/www/html/artisan storage:link
 
 
