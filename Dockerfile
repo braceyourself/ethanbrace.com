@@ -41,8 +41,8 @@ FROM base AS prod
 
 USER root
 
-COPY --from=assets /usr/src/app/public/js /var/www/html/dist/
-COPY --from=assets /usr/src/app/public/css /var/www/html/dist/
+COPY --from=assets /usr/src/app/public/js /var/www/html/dist/js
+COPY --from=assets /usr/src/app/public/css /var/www/html/dist/css
 
 
 RUN mkdir -p /var/www/html/public/vendor/statamic/cp \
