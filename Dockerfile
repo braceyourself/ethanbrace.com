@@ -18,14 +18,6 @@ COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr
 RUN install-php-extensions \
         @composer
 
-RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    npm
-
-RUN npm install npm@latest -g \
-    && npm install n -g \
-    && n lts
-
 RUN chown www-data:www-data /var/www -R
 
 USER www-data
@@ -35,9 +27,6 @@ RUN mkdir -p /var/www/html/public/vendor/statamic/cp && \
     cp /var/www/html/vendor/statamic/cms/resources/dist/** /var/www/html/public/vendor/statamic/cp/
 
 RUN composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --no-dev \
-    && npm install \
-    && npm run prod \
-    && rm -rf node_modules \
     && /var/www/html/artisan storage:link
 
 
