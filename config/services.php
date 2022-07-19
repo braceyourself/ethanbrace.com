@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'toggl' => [
+        'token' => env('TOGGL_TOKEN'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
