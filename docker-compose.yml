@@ -4,22 +4,3 @@ services:
   php:
     image: ethanabrace/php:8.1-fpm
     user: '1000'
-    volumes:
-      - ./:/var/www/html
-      - ~/.config/psysh:/.config/psysh
-    hostname: 'ethanbrace.localhost'
-    labels:
-      traefik.enable: true
-      traefik.docker.network: traefik_default
-      traefik.http.routers.eb-com.rule: Host(`ethanbrace.localhost`)
-      traefik.http.routers.eb-com.entrypoints: web
-      traefik.http.services.eb-com.loadbalancer.server.port: 80
-    command: "php -S 0.0.0.0:80 -t /var/www/html/public"
-    networks:
-      - default
-      - traefik_default
-
-
-networks:
-    traefik_default:
-        external: true
