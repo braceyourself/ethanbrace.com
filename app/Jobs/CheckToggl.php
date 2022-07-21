@@ -37,13 +37,13 @@ class CheckToggl implements ShouldQueue
         /** @var PendingRequest $client */
         $client = app('toggl');
 
-        $current = $client->get('me/time_entries/current')->body();
+        $current = $client->get('me/time_entries/current');
 
-        if($current){
+        if(!$current->json()){
             return;
         }
 
-        $current_diff = now()->unix() + $current->get('duration');
+        $current_diff = now()->unix() + $current->json('duration');
 
 
         $all = $client->get('me/time_entries', [
@@ -54,7 +54,7 @@ class CheckToggl implements ShouldQueue
                     return false;
                 }
 
-                return $value['description'] === $current->get('description');
+                return $value['description'] === $current->json('description');
             })
             ->sum('duration');
 
@@ -64,7 +64,10 @@ class CheckToggl implements ShouldQueue
             ->diffInHours();
 
 
+        $mail = Mail::to(['ethan@modernmcguire.com']);
 
-        Mail::to(['ethan@modernmcguire.com'])->send(new TogglDurationReminder($current->get('description'), $diff));
+        $mail->send(
+                new TogglDurationReminder($current->json('description'), $diff)
+            );
     }
 }
